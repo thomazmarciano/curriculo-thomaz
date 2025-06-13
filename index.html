@@ -853,7 +853,7 @@
       }
 
       function toogleDevMode() {
-        window.location.href = "./dev_terminal_resume.html";
+        window.location.href = "./thomaz_dev_terminal_2025.html";
       }
 
       // Detectar preferência do sistema
@@ -867,39 +867,8 @@
       }
 
       function downloadPDF() {
-        const oneDriveUrl =
-          "https://1drv.ms/w/c/9ae2c50d698fe2fc/EZji7Bsn3utNjB_blSqehFsBs93VosEdFC6g4U3icuzTbg?e=1jBGdI";
-
-        const directDownloadUrl = oneDriveUrl.replace(
-          "?e=1jBGdI",
-          "?download=1"
-        );
-
-        const fileName = "documento.pdf";
-
-        const link = document.createElement("a");
-        link.href = directDownloadUrl;
-        link.download = fileName;
-        link.target = "_blank";
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open("thomaz_cv_2025.pdf", "_blank");
       }
-
-      // function downloadLocalPDF() {
-      //   // Caminho relativo do PDF no seu servidor
-      //   const pdfPath = "/Users/Maria%20Edea/Downloads/ThomazPDF.pdf"; // Ajuste o caminho
-      //   const fileName = "ThomazPDF.pdf";
-
-      //   const link = document.createElement("a");
-      //   link.href = pdfPath;
-      //   link.download = fileName;
-
-      //   document.body.appendChild(link);
-      //   link.click();
-      //   document.body.removeChild(link);
-      // }
     </script>
   </body>
 </html>
