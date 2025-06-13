@@ -1,0 +1,2 @@
+# curriculo-thomaz
+Currículo Thomaz
