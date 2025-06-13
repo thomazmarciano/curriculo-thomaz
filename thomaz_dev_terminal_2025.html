@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thomaz Marciano Braga - Terminal Resume</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --terminal-bg: #0c0c0c;
+        --terminal-border: #333;
+        --terminal-text: #00ff41;
+        --terminal-secondary: #ffffff;
+        --terminal-muted: #888;
+        --terminal-accent: #ff6b35;
+        --terminal-success: #00ff41;
+        --terminal-warning: #ffaa00;
+        --terminal-error: #ff4757;
+        --terminal-info: #00a8ff;
+        --terminal-purple: #9c88ff;
+        --terminal-cyan: #00d2d3;
+        --shadow: rgba(0, 255, 65, 0.3);
+      }
+
+      body {
+        font-family: "JetBrains Mono", "Consolas", "Monaco", monospace;
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--terminal-text);
+        overflow-x: hidden;
+      }
+
+      .terminal-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: var(--terminal-bg);
+        border: 2px solid var(--terminal-border);
+        border-radius: 8px;
+        box-shadow: 0 0 30px var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .terminal-header {
+        background: #2d2d2d;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--terminal-border);
+        position: relative;
+      }
+
+      .terminal-controls {
+        display: flex;
+        gap: 8px;
+      }
+
+      .control-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+      }
+
+      .close {
+        background: #ff5f57;
+      }
+      .minimize {
+        background: #ffbd2e;
+      }
+      .maximize {
+        background: #28ca42;
+      }
+
+      .terminal-title {
+        color: var(--terminal-secondary);
+        font-size: 14px;
+        font-weight: 500;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .easter-egg-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        padding: 6px 8px;
+        color: var(--terminal-secondary);
+        cursor: pointer;
+        font-size: 12px;
+        font-family: "JetBrains Mono", monospace;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .easter-egg-btn:hover {
+        background: rgba(0, 255, 65, 0.1);
+        border-color: var(--terminal-success);
+        color: var(--terminal-success);
+        transform: scale(1.05);
+      }
+
+      .pdf-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        padding: 6px 8px;
+        color: var(--terminal-secondary);
+        cursor: pointer;
+        font-size: 12px;
+        font-family: "JetBrains Mono", monospace;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .terminal-content {
+        padding: 20px;
+        background: var(--terminal-bg);
+        min-height: 80vh;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .command-line {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+
+      .prompt {
+        color: var(--terminal-success);
+        margin-right: 8px;
+        font-weight: 600;
+      }
+
+      .command {
+        color: var(--terminal-info);
+        font-weight: 500;
+      }
+
+      .cursor {
+        background: var(--terminal-success);
+        color: var(--terminal-bg);
+        animation: blink 1s infinite;
+        padding: 0 2px;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .output {
+        margin-bottom: 20px;
+        white-space: pre-wrap;
+      }
+
+      .ascii-art {
+        color: var(--terminal-success);
+        font-size: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 300;
+      }
+
+      .section {
+        margin-bottom: 25px;
+        border-left: 3px solid var(--terminal-success);
+        padding-left: 15px;
+      }
+
+      .section-title {
+        color: var(--terminal-accent);
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .info-label {
+        color: var(--terminal-warning);
+        font-weight: 600;
+      }
+
+      .info-value {
+        color: var(--terminal-secondary);
+      }
+
+      .tech-stack {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .tech-category {
+        background: rgba(0, 255, 65, 0.05);
+        border: 1px solid rgba(0, 255, 65, 0.2);
+        padding: 15px;
+        border-radius: 4px;
+      }
+
+      .tech-category h4 {
+        color: var(--terminal-purple);
+        margin-bottom: 8px;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .tech-list {
+        color: var(--terminal-secondary);
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      .experience-item {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--terminal-border);
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .experience-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(
+          180deg,
+          var(--terminal-success),
+          var(--terminal-cyan)
+        );
+      }
+
+      .job-title {
+        color: var(--terminal-cyan);
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .company-period {
+        color: var(--terminal-warning);
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .job-description {
+        color: var(--terminal-secondary);
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+      }
+
+      .highlights {
+        margin-top: 10px;
+      }
+
+      .highlights ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .highlights li {
+        color: var(--terminal-muted);
+        font-size: 11px;
+        margin-bottom: 4px;
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .highlights li::before {
+        content: "▶";
+        position: absolute;
+        left: 0;
+        color: var(--terminal-success);
+      }
+
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .stat-box {
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid var(--terminal-success);
+        padding: 15px;
+        text-align: center;
+        border-radius: 4px;
+      }
+
+      .stat-number {
+        color: var(--terminal-success);
+        font-size: 24px;
+        font-weight: 700;
+        display: block;
+      }
+
+      .stat-label {
+        color: var(--terminal-muted);
+        font-size: 10px;
+        text-transform: uppercase;
+        margin-top: 5px;
+      }
+
+      .contact-info {
+        background: rgba(255, 107, 53, 0.1);
+        border: 1px solid var(--terminal-accent);
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+
+      .contact-info a {
+        color: var(--terminal-accent);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .contact-info a:hover {
+        color: var(--terminal-success);
+      }
+
+      .hidden-content {
+        display: none;
+        background: rgba(156, 136, 255, 0.1);
+        border: 1px solid var(--terminal-purple);
+        padding: 20px;
+        border-radius: 4px;
+        margin-top: 20px;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .hidden-content.show {
+        display: block;
+      }
+
+      .terminal-header {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #3e3e42;
+        max-width: 800px;
+        margin: 20px auto;
+      }
+
+      .terminal-line {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+      }
+
+      .prompt {
+        color: #569cd6;
+        margin-right: 8px;
+      }
+
+      .command {
+        color: #ce9178;
+      }
+
+      .name-output {
+        color: #4ec9b0;
+        font-weight: bold;
+        font-size: 18px;
+        margin: 10px 0 5px 0;
+      }
+
+      .role-output {
+        color: #dcdcaa;
+        font-size: 14px;
+        margin-left: 20px;
+      }
+
+      .cursor {
+        background: #d4d4d4;
+        width: 8px;
+        height: 16px;
+        display: inline-block;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .terminal-header {
+          padding: 15px;
+          font-size: 12px;
+        }
+
+        .name-output {
+          font-size: 16px;
+        }
+
+        .role-output {
+          font-size: 12px;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.03;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .terminal-content {
+          padding: 15px;
+          font-size: 12px;
+        }
+
+        .info-grid {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+
+        .tech-stack {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-controls">
+          <div class="control-btn close"></div>
+          <div class="control-btn minimize"></div>
+          <div class="control-btn maximize"></div>
+        </div>
+        <div class="terminal-title">thomaz@dev-machine:~/resume</div>
+        <div style="display: flex; gap: 8px; align-items: center">
+          <button class="easter-egg-btn pdf-btn" onclick="downloadPDF()">
+            <span>📄</span>
+            <span>PDF</span>
+          </button>
+          <button class="easter-egg-btn" onclick="toggleEasterEgg()">
+            <span>&lt;/&gt;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="terminal-content">
+        <div class="terminal-line">
+          <div class="command-line">
+            <span class="prompt">thomaz@dev-machine:~$</span>
+            <span class="command">whoami</span>
+          </div>
+        </div>
+        <div class="name-output">THOMAZ MARCIANO BRAGA</div>
+        <div class="role-output">
+          DESENVOLVEDOR FRONTEND PLENO • SUPERVISOR TÉCNICO
+        </div>
+
+        <div class="output">
+          <div class="contact-info">
+            <div class="info-grid">
+              <span class="info-label">NAME:</span>
+              <span class="info-value">Thomaz Marciano Braga</span>
+              <span class="info-label">EMAIL:</span>
+              <span class="info-value"
+                ><a href="mailto:thomazmarciano@gmail.com"
+                  >thomazmarciano@gmail.com</a
+                ></span
+              >
+              <span class="info-label">PHONE:</span>
+              <span class="info-value"
+                ><a href="tel:+5521964239003">+55 21 96423-9003</a></span
+              >
+              <span class="info-label">LINKEDIN:</span>
+              <span class="info-value"
+                ><a href="https://www.linkedin.com/in/thomazbr" target="_blank"
+                  >linkedin.com/in/thomazbr</a
+                ></span
+              >
+              <span class="info-label">GITHUB:</span>
+              <span class="info-value"
+                ><a href="https://www.github.com/thomazmarciano" target="_blank"
+                  >github.com/thomazmarciano</a
+                ></span
+              >
+              <span class="info-label">LOCATION:</span>
+              <span class="info-value">Rio de Janeiro, RJ - Brasil</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="command-line">
+          <span class="prompt">thomaz@dev-machine:~$</span>
+          <span class="command">cat summary.txt</span>
+        </div>
+
+        <div class="output">
+          <div class="section">
+            <div class="section-title">// RESUMO PROFISSIONAL</div>
+            <p
+              style="
+                color: var(--terminal-secondary);
+                font-size: 12px;
+                line-height: 1.5;
+              "
+            >
+              Profissional com sólida experiência em desenvolvimento de sistemas
+              voltados à área da saúde, atuando desde 2011 em projetos de alta
+              relevância para o Estado do RJ. Possuo domínio em tecnologias
+              modernas de backend e frontend, além de vivência com equipes ágeis
+              e liderança técnica.
+            </p>
+          </div>
+        </div>
+
+        <div class="command-line">
+          <span class="prompt">thomaz@dev-machine:~$</span>
+          <span class="command">ls -la skills/</span>
+        </div>
+
+        <div class="output">
+          <div class="stats-container">
+            <div class="stat-box">
+              <span class="stat-number">14+</span>
+              <span class="stat-label">Anos de Experiência</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Área da Saúde</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">3+</span>
+              <span class="stat-label">XP Técnica</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Vontade de Aprender</span>
+            </div>
+          </div>
+
+          <div class="tech-stack">
+            <div class="tech-category">
+              <h4>Frontend</h4>
+              <div class="tech-list">
+                Vue.js 2/3, Angular, React, React Native, Bootstrap, Tamagui,
+                Storybook
+              </div>
+            </div>
+            <div class="tech-category">
+              <h4>Backend</h4>
+              <div class="tech-list">
+                Python, Java, PHP, TypeScript, JavaScript, Node.js, PL/SQL
+              </div>
+            </div>
+            <div class="tech-category">
+              <h4>Frameworks</h4>
+              <div class="tech-list">Spring Boot, Laravel</div>
+            </div>
+            <div class="tech-category">
+              <h4>Databases</h4>
+              <div class="tech-list">
+                Oracle, SQL Server, MySQL, Postgres, MongoDB, Redis, Cassandra,
+                Neo4J
+              </div>
+            </div>
+            <div class="tech-category">
+              <h4>APIs & Integration</h4>
+              <div class="tech-list">REST, GraphQL</div>
+            </div>
+            <div class="tech-category">
+              <h4>Tools & BI</h4>
+              <div class="tech-list">
+                Pentaho, Power BI, Git, Maven, Gradle, Nitro, Postman, dBeaver,
+                Docker
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="command-line">
+          <span class="prompt">thomaz@dev-machine:~$</span>
+          <span class="command">git log --oneline experience/</span>
+        </div>
+
+        <div class="output">
+          <div class="experience-item">
+            <div class="job-title">
+              Analista e Desenvolvedor de Sistemas Pleno
+            </div>
+            <div class="company-period">
+              Secretaria Municipal de Saúde – IVISA-Rio • 2025
+            </div>
+            <div class="job-description">
+              Atuação no Instituto de Vigilância Sanitária (IVISA-Rio),
+              modernizando sistemas críticos, com foco no desenvolvimento em
+              React Native para fiscalização digital offline com sincronização
+              automática ao sistema principal (Sisvisa).
+            </div>
+            <div class="highlights">
+              <ul>
+                <li>
+                  Desenvolvimento de Design System com Tamagui e Storybook
+                </li>
+                <li>
+                  Criação de aplicativo mobile em React Native para fiscalização
+                  offline
+                </li>
+                <li>
+                  Arquitetura integrada entre plataformas web/mobile via APIs
+                  REST/GraphQL
+                </li>
+                <li>
+                  Trabalho em squads ágeis (Scrum), com gestão via
+                  Jira/Confluence
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="experience-item">
+            <div class="job-title">Analista e Desenvolvedor de Sistemas</div>
+            <div class="company-period">
+              Secretaria Municipal de Saúde – Complexo Regulador-Rio • 2021-2025
+            </div>
+            <div class="job-description">
+              Atuação no Complexo Regulador do Município do Rio de Janeiro, com
+              foco na manutenção dos sistemas SMSRIO.ORG e SER-RJ. Implementação
+              de Business Intelligence com Pentaho Suite e Power BI.
+              Desenvolvimento front-end com Vue.js e Angular.
+            </div>
+          </div>
+
+          <div class="experience-item">
+            <div class="job-title">Supervisor Administrativo</div>
+            <div class="company-period">
+              Secretaria Estadual de Saúde • 2016–2021
+            </div>
+            <div class="job-description">
+              Coordenação de profissionais de saúde e apoio ao desenvolvimento e
+              manutenção do sistema SER. Treinamento de equipes e monitoramento
+              de sistemas de regulação estadual.
+            </div>
+          </div>
+
+          <div class="experience-item">
+            <div class="job-title">Agente Administrativo</div>
+            <div class="company-period">IABAS • 2011–2016</div>
+            <div class="job-description">
+              Apoio técnico e operacional em unidades de saúde da família.
+              Controle de pessoal, ponto eletrônico e suporte a sistemas como
+              SISREG, Klinikos, SCNES.
+            </div>
+          </div>
+        </div>
+
+        <div class="command-line">
+          <span class="prompt">thomaz@dev-machine:~$</span>
+          <span class="command">cat education.log</span>
+        </div>
+
+        <div class="output">
+          <div class="section">
+            <div class="section-title">// FORMAÇÃO & CERTIFICAÇÕES</div>
+            <div class="info-grid">
+              <span class="info-label">GRADUAÇÃO:</span>
+              <span class="info-value"
+                >Análise e Desenvolvimento de Sistemas - Universidade Estácio de
+                Sá (2021)</span
+              >
+              <span class="info-label">BOOTCAMP:</span>
+              <span class="info-value"
+                >Santander Fullstack Developer - Digital Innovation One
+                (2021)</span
+              >
+              <span class="info-label">IDIOMAS:</span>
+              <span class="info-value"
+                >Inglês (Fluente) • Espanhol (Intermediário)</span
+              >
+              <span class="info-label">HOBBY:</span>
+              <span class="info-value"
+                >Ensino de informática para idosos (IA e novas
+                tecnologias)</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="command-line">
+          <span class="prompt">thomaz@dev-machine:~$</span>
+          <span class="command">echo "Ready for new challenges!"</span>
+          <span class="cursor">█</span>
+        </div>
+
+        <div class="output">
+          <p
+            style="
+              color: var(--terminal-success);
+              font-weight: 600;
+              margin-top: 10px;
+            "
+          >
+            Ready for new challenges!
+          </p>
+        </div>
+
+        <div class="hidden-content" id="easterEgg">
+          <div class="section-title">// EASTER EGG ATIVADO! 🎉</div>
+          <div
+            style="
+              color: var(--terminal-purple);
+              font-size: 12px;
+              line-height: 1.5;
+            "
+          >
+            <p>Parabéns! Você encontrou o easter egg! 🚀</p>
+            <br />
+            <p>Algumas curiosidades sobre mim:</p>
+            <ul style="margin-top: 10px; padding-left: 20px">
+              <li>☕ Consumo aproximadamente 6 xícaras de café por dia</li>
+              <li>🎮 Sou apaixonado por aviação e simuladores de voo</li>
+              <li>
+                🤖 Tenho fascínio por IA e automation desde antes do ChatGPT
+              </li>
+              <li>
+                👴 Adoro ensinar tecnologia para idosos - é muito gratificante!
+              </li>
+              <li>🌃 Prefiro trabalhar durante a madrugada (mais produtivo)</li>
+              <li>📚 Sempre tenho 3-4 cursos online em andamento</li>
+              <li>
+                🎯 Meu próximo objetivo: contribuir para projetos open source
+              </li>
+            </ul>
+            <br />
+            <p style="color: var(--terminal-cyan)">
+              Se você chegou até aqui, definitivamente somos compatíveis! 😄
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleEasterEgg() {
+        const easterEgg = document.getElementById("easterEgg");
+        easterEgg.classList.toggle("show");
+
+        // Scroll suave para o easter egg
+        if (easterEgg.classList.contains("show")) {
+          easterEgg.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }
+
+      function downloadPDF() {
+        const oneDriveUrl =
+          "https://1drv.ms/w/c/9ae2c50d698fe2fc/EZji7Bsn3utNjB_blSqehFsBs93VosEdFC6g4U3icuzTbg?e=1jBGdI";
+
+        const directDownloadUrl = oneDriveUrl.replace(
+          "?e=1jBGdI",
+          "?download=1"
+        );
+
+        const fileName = "documento.pdf";
+
+        const link = document.createElement("a");
+        link.href = directDownloadUrl;
+        link.download = fileName;
+        link.target = "_blank";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Matrix rain effect
+      const canvas = document.getElementById("matrix");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const matrix =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+      const matrixArray = matrix.split("");
+
+      const fontSize = 10;
+      const columns = canvas.width / fontSize;
+
+      const drops = [];
+      for (let x = 0; x < columns; x++) {
+        drops[x] = 1;
+      }
+
+      function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#00ff41";
+        ctx.font = fontSize + "px JetBrains Mono";
+
+        for (let i = 0; i < drops.length; i++) {
+          const text =
+            matrixArray[Math.floor(Math.random() * matrixArray.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(draw, 35);
+
+      // Resize canvas
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Terminal typing effect
+      function typeCommand(element, text, speed = 50) {
+        let i = 0;
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+          } else {
+            clearInterval(timer);
+          }
+        }, speed);
+      }
+
+      // Add some interactive elements
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && e.ctrlKey) {
+          toggleEasterEgg();
+        }
+      });
+    </script>
+  </body>
+</html>
