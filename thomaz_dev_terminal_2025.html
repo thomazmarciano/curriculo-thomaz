@@ -417,6 +417,26 @@
         animation: blink 1s infinite;
       }
 
+      .back-button {
+        position: relative;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1000;
+      }
+
+      .back-button a {
+        font-size: 1.8rem;
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        font-family: sans-serif;
+      }
+
+      .back-button a:hover {
+        color: #007bff;
+        cursor: pointer;
+      }
+
       @keyframes blink {
         0%,
         50% {
@@ -494,6 +514,9 @@
     <canvas class="matrix-bg" id="matrix"></canvas>
 
     <div class="terminal-container">
+      <div class="back-button">
+        <a href="index.html">&lt;</a>
+      </div>
       <div class="terminal-header">
         <div class="terminal-controls">
           <div class="control-btn close"></div>
@@ -597,7 +620,7 @@
               <span class="stat-label">Área da Saúde</span>
             </div>
             <div class="stat-box">
-              <span class="stat-number">3+</span>
+              <span class="stat-number">4+</span>
               <span class="stat-label">XP Técnica</span>
             </div>
             <div class="stat-box">
@@ -821,7 +844,7 @@
         }
       }
 
-      function downloadPDF() {
+      function downloadPDF_Old() {
         const oneDriveUrl =
           "https://1drv.ms/w/c/9ae2c50d698fe2fc/EZji7Bsn3utNjB_blSqehFsBs93VosEdFC6g4U3icuzTbg?e=1jBGdI";
 
@@ -840,6 +863,10 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+      }
+
+      function downloadPDF() {
+        window.open("thomaz_cv_2025.pdf", "_blank");
       }
 
       // Matrix rain effect
