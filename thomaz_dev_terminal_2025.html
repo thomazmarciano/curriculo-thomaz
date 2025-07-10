@@ -161,6 +161,13 @@
         padding: 0 2px;
       }
 
+      .cursor-blink {
+        background: #fff;
+        color: #fff;
+        animation: blink 1s infinite;
+        padding: 0 2px;
+      }
+
       @keyframes blink {
         0%,
         50% {
@@ -474,7 +481,7 @@
         }
       }
 
-      .matrix-bg {
+      /* .matrix-bg {
         position: fixed;
         top: 0;
         left: 0;
@@ -483,6 +490,18 @@
         pointer-events: none;
         z-index: -1;
         opacity: 0.03;
+      } */
+
+      .matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        pointer-events: none;
+        opacity: 0.4; /* ou 1.0 se quiser forte */
       }
 
       @media (max-width: 768px) {
@@ -544,7 +563,7 @@
         </div>
         <div class="name-output">THOMAZ MARCIANO BRAGA</div>
         <div class="role-output">
-          DESENVOLVEDOR FRONTEND PLENO • SUPERVISOR TÉCNICO
+          Analista e Desenvolvedor de Sistemas Pleno (Front-End / Mobile)
         </div>
 
         <div class="output">
@@ -778,8 +797,8 @@
 
         <div class="command-line">
           <span class="prompt">thomaz@dev-machine:~$</span>
-          <span class="command">echo "Ready for new challenges!"</span>
-          <span class="cursor">█</span>
+          <span class="command">echo "Ready for new challenges!" </span>
+          <span class="cursor-blink">█</span>
         </div>
 
         <div class="output">
@@ -844,26 +863,27 @@
         }
       }
 
-      function downloadPDF_Old() {
-        const oneDriveUrl =
-          "https://1drv.ms/w/c/9ae2c50d698fe2fc/EZji7Bsn3utNjB_blSqehFsBs93VosEdFC6g4U3icuzTbg?e=1jBGdI";
+      // Download PDF from Cloud (OneDrive)
+      // function downloadPDF_Old() {
+      //   const oneDriveUrl =
+      //     "https://1drv.ms/w/c/9ae2c50d698fe2fc/EZji7Bsn3utNjB_blSqehFsBs93VosEdFC6g4U3icuzTbg?e=1jBGdI";
 
-        const directDownloadUrl = oneDriveUrl.replace(
-          "?e=1jBGdI",
-          "?download=1"
-        );
+      //   const directDownloadUrl = oneDriveUrl.replace(
+      //     "?e=1jBGdI",
+      //     "?download=1"
+      //   );
 
-        const fileName = "documento.pdf";
+      //   const fileName = "documento.pdf";
 
-        const link = document.createElement("a");
-        link.href = directDownloadUrl;
-        link.download = fileName;
-        link.target = "_blank";
+      //   const link = document.createElement("a");
+      //   link.href = directDownloadUrl;
+      //   link.download = fileName;
+      //   link.target = "_blank";
 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   document.body.removeChild(link);
+      // }
 
       function downloadPDF() {
         window.open("thomaz_cv_2025.pdf", "_blank");
